@@ -19,10 +19,11 @@ interface LoginScreenProps {
     drivers: Driver[];
 }
 
-const NeumorphicInput: React.FC<any> = ({ label, type = 'text', value, onChange, required = false, placeholder = '' }) => (
+const NeumorphicInput: React.FC<any> = ({ label, id, type = 'text', value, onChange, required = false, placeholder = '' }) => (
     <div>
-        {label && <label className="block text-sm font-medium text-[var(--color-text-strong)] mb-2">{label}</label>}
+        {label && <label htmlFor={id} className="block text-sm font-medium text-[var(--color-text-strong)] mb-2">{label}</label>}
         <input 
+            id={id}
             type={type} 
             value={value} 
             onChange={onChange} 
@@ -48,25 +49,29 @@ const CreateOrderForm: React.FC<{ onCreateOrder: (orderData: NewOrderData) => vo
             alert('Por favor, complete todos los campos para crear su envío.');
             return;
         }
+        if (isNaN(itemQuantity) || itemQuantity <= 0) {
+            alert('La cantidad debe ser un número positivo.');
+            return;
+        }
         onCreateOrder({
             customerName,
             pickupAddress,
             deliveryAddress,
-            items: [{ name: itemName, quantity: itemQuantity > 0 ? itemQuantity : 1 }],
+            items: [{ name: itemName, quantity: itemQuantity }],
         });
     };
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
-            <NeumorphicInput label="Tu Nombre o Empresa" value={customerName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCustomerName(e.target.value)} required />
-            <NeumorphicInput label="Dirección de Recogida" value={pickupAddress} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPickupAddress(e.target.value)} required />
-            <NeumorphicInput label="Dirección de Entrega" value={deliveryAddress} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDeliveryAddress(e.target.value)} required />
+            <NeumorphicInput id="customerName" label="Tu Nombre o Empresa" value={customerName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCustomerName(e.target.value)} required />
+            <NeumorphicInput id="pickupAddress" label="Dirección de Recogida" value={pickupAddress} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPickupAddress(e.target.value)} required />
+            <NeumorphicInput id="deliveryAddress" label="Dirección de Entrega" value={deliveryAddress} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDeliveryAddress(e.target.value)} required />
              <div className="grid grid-cols-3 gap-4">
                 <div className="col-span-2">
-                    <NeumorphicInput label="Ítem a enviar" value={itemName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setItemName(e.target.value)} placeholder="Ej: Documentos" required />
+                    <NeumorphicInput id="itemName" label="Ítem a enviar" value={itemName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setItemName(e.target.value)} placeholder="Ej: Documentos" required />
                 </div>
                 <div>
-                    <NeumorphicInput label="Cantidad" type="number" value={itemQuantity} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setItemQuantity(parseInt(e.target.value, 10))} required />
+                    <NeumorphicInput id="itemQuantity" label="Cantidad" type="number" value={itemQuantity} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setItemQuantity(parseInt(e.target.value, 10))} required />
                 </div>
             </div>
             <button type="submit" className="w-full flex justify-center items-center p-3 rounded-lg text-lg font-semibold text-white bg-[var(--color-primary)] shadow-[5px_5px_10px_var(--color-shadow-dark),_-5px_-5px_10px_var(--color-shadow-light)] hover:bg-[var(--color-primary-hover)] active:shadow-[inset_2px_2px_5px_var(--color-shadow-dark),_-inset_-2px_-2px_5px_var(--color-shadow-light)] transition-all">
@@ -127,7 +132,8 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin, onCreateOrder
                 <div className="mb-8 p-6 bg-[var(--color-surface)] rounded-[var(--border-radius-main)] shadow-[5px_5px_10px_var(--color-shadow-dark),_-5px_-5px_10px_var(--color-shadow-light)] border border-[var(--color-shadow-light)]">
                     <h2 className="text-xl font-bold text-[var(--color-text-strong)] mb-3 text-center sm:text-left">¿Ya tienes un envío? Rastréalo aquí.</h2>
                     <form onSubmit={handleTrackingSubmit} className="flex flex-col sm:flex-row gap-3">
-                        <NeumorphicInput 
+                        <NeumorphicInput
+                            id="trackingId"
                             placeholder="Ingresa tu ID de seguimiento (ej: ORD-A1B2C)"
                             value={trackingId}
                             onChange={(e: any) => { setTrackingId(e.target.value); setTrackingError(''); }}
@@ -169,7 +175,8 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin, onCreateOrder
                             </div>
                             
                             <form onSubmit={handleDriverLogin} className="space-y-3">
-                                <NeumorphicInput 
+                                <NeumorphicInput
+                                    id="driverEmail"
                                     placeholder="Correo de conductor"
                                     type="email"
                                     value={driverEmail}
@@ -177,6 +184,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin, onCreateOrder
                                     required
                                 />
                                 <NeumorphicInput
+                                    id="driverPassword"
                                     placeholder="Contraseña"
                                     type="password"
                                     value={driverPassword}
