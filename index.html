@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OptiRuta - Plataforma de Gestión Logística</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root, [data-theme="light"] {
+        --color-bg: #e0e5ec;
+        --color-surface: #e0e5ec;
+        --color-shadow-light: #ffffff;
+        --color-shadow-dark: #a3b1c6;
+        --color-text-main: #5a6474;
+        --color-text-strong: #374151;
+        --color-text-muted: #6b7280;
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+        --color-border: #d1d9e6;
+        --border-radius-main: 1rem; /* 16px */
+      }
+      [data-theme="dark"] {
+        --color-bg: #1e293b;
+        --color-surface: #26344a;
+        --color-shadow-light: #30415a;
+        --color-shadow-dark: #121822;
+        --color-text-main: #94a3b8;
+        --color-text-strong: #e2e8f0;
+        --color-text-muted: #64748b;
+        --color-primary: #3b82f6;
+        --color-primary-hover: #60a5fa;
+        --color-border: #334155;
+        --border-radius-main: 1rem;
+      }
+      [data-theme="mint"] {
+        --color-bg: #f0fdfa;
+        --color-surface: #e6fcf5;
+        --color-shadow-light: #ffffff;
+        --color-shadow-dark: #ccebe1;
+        --color-text-main: #134e4a;
+        --color-text-strong: #042f2e;
+        --color-text-muted: #14b8a6;
+        --color-primary: #0d9488;
+        --color-primary-hover: #14b8a6;
+        --color-border: #ccfbf1;
+        --border-radius-main: 1rem;
+      }
+      [data-theme="lavender"] {
+        --color-bg: #f5f3ff;
+        --color-surface: #f0edff;
+        --color-shadow-light: #ffffff;
+        --color-shadow-dark: #ddd6fe;
+        --color-text-main: #5b21b6;
+        --color-text-strong: #371d70;
+        --color-text-muted: #a78bfa;
+        --color-primary: #7c3aed;
+        --color-primary-hover: #8b5cf6;
+        --color-border: #ede9fe;
+        --border-radius-main: 1rem;
+      }
+      [data-theme="peach"] {
+        --color-bg: #fff7ed;
+        --color-surface: #fff3e6;
+        --color-shadow-light: #ffffff;
+        --color-shadow-dark: #f0e5d9;
+        --color-text-main: #9a3412;
+        --color-text-strong: #62200c;
+        --color-text-muted: #fb923c;
+        --color-primary: #ea580c;
+        --color-primary-hover: #f97316;
+        --color-border: #ffedd5;
+        --border-radius-main: 1rem;
+      }
+      .leaflet-container {
+        height: 100%;
+        width: 100%;
+      }
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--color-bg);
+        color: var(--color-text-main);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+      }
+    </style>
+    <script>
+      // Prevents Flash of Un-styled Content (FOUC)
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.25.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.2.1",
+    "react-leaflet": "https://aistudiocdn.com/react-leaflet@^5.0.0",
+    "leaflet": "https://aistudiocdn.com/leaflet@^1.9.4",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.545.0",
+    "leaflet/": "https://aistudiocdn.com/leaflet@^1.9.4/"
+  }
+}
+</script>
+</head>
+  <body class="transition-colors duration-300">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

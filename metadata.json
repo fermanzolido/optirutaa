@@ -1,0 +1,9 @@
+{
+  "requestFramePermissions": [
+    "microphone",
+    "camera",
+    "geolocation"
+  ],
+  "name": "OptiRuta - Plataforma de Gestión Logística",
+  "description": ""
+}
